@@ -47,6 +47,8 @@ from reliability.Probability_plotting import Weibull_probability_plot
 
 # In[ ]:
 
+paf = pd.read_csv('https://raw.githubusercontent.com/Gmgucejr/PAF/refs/heads/main/PAF.csv')
+paf.info()
 
 st.set_page_config(layout="wide")
 
@@ -131,12 +133,6 @@ with col2:
     index=0)
 st.write("Current Utilization Selection:", util)
 
-
-# In[ ]:
-
-
-paf = pd.read_csv('https://raw.githubusercontent.com/Gmgucejr/PAF/refs/heads/main/PAF.csv')
-paf.info()
 
 
 # In[ ]:
