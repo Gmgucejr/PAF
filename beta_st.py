@@ -316,7 +316,7 @@ ax[0].set_ylabel('Reliability')
 
 ax[0].vlines(2000,0,wb.predict(2000),linestyle='--',color='r')
 ax[0].hlines(wb.predict(2000),2000,4000,linestyle='--',color='r')
-ax[0].text(100, 0.89,'Reliability (T=2K) = 89.69%')
+ax[0].text(100, 0.89,'Reliability (T=2K) @ B10% Life')
 ax[0].text(0, 0.2, f'Shape={shape:.2F} \nScale={scale:.2F}')
 ax[1] = Weibull_probability_plot(failures=failures.to_numpy(),right_censored=suspensions.to_numpy(), CI=0.95)
 plt.tight_layout(h_pad=5)
@@ -359,7 +359,9 @@ st.pyplot(fig2)
 # In[ ]:
 
 
-paf
+paf2=paf[['AIRCRAFT NR', 'PART NUMBER', 'SERIAL NUMBER ', 'TSN', 'REMARKS','removal_date', 'current_date', 'TSLSV', 'tat', 'rfi_date']]
+paf2.columns = ['AIRCRAFT NR', 'PART NUMBER', 'SERIAL NUMBER ', 'TSN', 'REMARKS', 'Weibull_Removal_Date', 'Current_Date', 'TSLSV', 'WTW_TAT', 'RFI_date']
+paf2
 
 
 # In[ ]:
