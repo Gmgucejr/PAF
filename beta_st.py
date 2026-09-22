@@ -308,7 +308,7 @@ paf8 = paf7.head(72)
 # In[ ]:
 
 
-fig, ax = plt.subplots(1,2, figsize=(20, 10))
+fig, ax = plt.subplots(1,2, figsize=(10, 10))
 wb.survival_function_.plot(kind='line',ax=ax[0])
 ax[0].set_title('Reliability = 89.69% (T=2K hours) ')
 ax[0].set_xlabel('Hours')
