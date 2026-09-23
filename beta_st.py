@@ -306,7 +306,7 @@ rcParams['figure.figsize'] = 18, 6
 # In[ ]:
 
 
-paf8 = paf7.head(72)
+paf10 = paf7.head(72)
 
 
 # In[ ]:
@@ -471,9 +471,9 @@ plt.show()
 
 fig2, ax = plt.subplots()
 ax.set_yticks([-4, -3, -2, -1, 0, 1, 2, 3, 4])
-ax.plot(paf8['TPP_date'], paf8['Net_Spare_Count'])
+ax.plot(paf10['TPP_date'], paf10['Net_Spare_Count'])
 
-ax.text(min(paf8['TPP_date']), min(paf8['Net_Spare_Count']), f'WTW TAT ={tat} days \n\nUtilization={util:}hrs/mo', c='blue')
+ax.text(min(paf10['TPP_date']), min(paf10['Net_Spare_Count']), f'WTW TAT ={tat} days \n\nUtilization={util:}hrs/mo', c='blue')
 
 plt.axhline(y=1, color='red', linestyle='--', linewidth=1.5)
 plt.axvspan(paf8.TPP_date.iloc[46],paf8.TPP_date.iloc[49], color='yellow', alpha=0.2)
