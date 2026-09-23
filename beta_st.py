@@ -374,19 +374,13 @@ net = len(paf[paf['REMARKS'] == 'SERVICEABLE'])
 
 
 for c in range (len(paf2)):
-    paf2['RFI_date'].iloc[c]= paf['Weibull_Removal_Date'].iloc[c] + timedelta(days = (paf['WTW_TAT'].iloc[c])/1.0)
+    paf2['RFI_date'].iloc[c]= paf2['Weibull_Removal_Date'].iloc[c] + timedelta(days = (paf2['WTW_TAT'].iloc[c])/1.0)
 
 
 # In[ ]:
 
 
 datetime_series = pd.Series(pd.date_range("2026-10-01", periods=72, freq="ME"))
-
-
-# In[ ]:
-
-
-paf1 = datetime_series.to_frame(name="TPP_date")
 
 
 # In[ ]:
