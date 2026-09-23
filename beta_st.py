@@ -329,8 +329,24 @@ plt.show()
 
 # Weibull_probability_plot(failures=failures.to_numpy(),right_censored=suspensions.to_numpy(), CI=0.95)
 
+
+
+
 # In[ ]:
 
+
+st.pyplot(fig)
+
+
+
+# In[ ]:
+
+
+paf2=paf[['AIRCRAFT NR', 'PART NUMBER', 'SERIAL NUMBER ', 'TSN', 'REMARKS','removal_date', 'current_date', 'TSLSV', 'tat', 'rfi_date']]
+paf2.columns = ['AIRCRAFT NR', 'PART NUMBER', 'SERIAL NUMBER ', 'TSN', 'REMARKS', 'Weibull_Removal_Date', 'Current_Date', 'TSLSV', 'WTW_TAT', 'RFI_date']
+st.data_editor(paf2)
+
+# In[ ]:
 
 fig2, ax = plt.subplots()
 ax.set_yticks([-2, -1, 0, 1, 2, 3, 4])
@@ -347,26 +363,10 @@ plt.title("Customer PAF T700 Line of Balance (LOB) Baseline Scenario")
 plt.legend()
 plt.show()
 
-
-# In[ ]:
-
-
-st.pyplot(fig)
-
-
 # In[ ]:
 
 
 st.pyplot(fig2)
-
-
-# In[ ]:
-
-
-paf2=paf[['AIRCRAFT NR', 'PART NUMBER', 'SERIAL NUMBER ', 'TSN', 'REMARKS','removal_date', 'current_date', 'TSLSV', 'tat', 'rfi_date']]
-paf2.columns = ['AIRCRAFT NR', 'PART NUMBER', 'SERIAL NUMBER ', 'TSN', 'REMARKS', 'Weibull_Removal_Date', 'Current_Date', 'TSLSV', 'WTW_TAT', 'RFI_date']
-paf2
-
 
 # In[ ]:
 
