@@ -406,8 +406,8 @@ paf['return_count']=1
 # In[ ]:
 
 
-paf5 = paf2.groupby(paf['Weibull_Removal_Date'].dt.to_period('M'))['removal_count'].sum().to_frame().reset_index()
-paf6 = paf2.groupby(paf['RFI_date'].dt.to_period('M'))['return_count'].sum().to_frame().reset_index()
+paf5 = paf2.groupby(paf2['Weibull_Removal_Date'].dt.to_period('M'))['removal_count'].sum().to_frame().reset_index()
+paf6 = paf2.groupby(paf2['RFI_date'].dt.to_period('M'))['return_count'].sum().to_frame().reset_index()
 paf5.rename(columns={'Weibull_Removal_Date': 'TPP_date'}, inplace=True)
 paf6.rename(columns={'RFI_date': 'TPP_date'}, inplace=True)
 paf7 = pd.merge(paf5, paf6, on='TPP_date', how='outer')
