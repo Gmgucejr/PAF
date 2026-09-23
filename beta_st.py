@@ -69,7 +69,8 @@ col3, col4 = st.columns([3, 3])
 with col3:
     selected_record = st.selectbox("Select ESN:",paf["SERIAL NUMBER "])
     selected_row = paf[paf["SERIAL NUMBER "]==selected_record]
-    selected_row
+    
+selected_row
 
 col1, col2 = st.columns([3, 3])
 
