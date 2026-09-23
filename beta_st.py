@@ -306,7 +306,7 @@ rcParams['figure.figsize'] = 18, 6
 # In[ ]:
 
 
-paf10 = paf7.head(72)
+paf8 = paf7.head(72)
 
 
 # In[ ]:
@@ -329,151 +329,14 @@ plt.show()
 
 # Weibull_probability_plot(failures=failures.to_numpy(),right_censored=suspensions.to_numpy(), CI=0.95)
 
-
-
-
 # In[ ]:
 
-
-st.pyplot(fig)
-
-
-
-# In[ ]:
-
-
-paf2=paf[['AIRCRAFT NR', 'PART NUMBER', 'SERIAL NUMBER ', 'TSN', 'REMARKS','removal_date', 'current_date', 'TSLSV', 'tat', 'rfi_date']]
-paf2.columns = ['AIRCRAFT NR', 'PART NUMBER', 'SERIAL NUMBER ', 'TSN', 'REMARKS', 'Weibull_Removal_Date', 'Current_Date', 'TSLSV', 'WTW_TAT', 'RFI_date']
-st.data_editor(paf2)
-
-
-
-
-
-############################################################# In[REPLOTTING]:
-
-
-#based on Weibull reliability rate 0f 89.69% @2K hours
-
-for b in range (len(paf2)):
-    if paf2['TSN'].iloc[b]>2000:
-        paf2['TSLSV'].iloc[b] = paf2['TSN'].iloc[b] - 2000
-    else:
-        paf2['TSLSV'].iloc[b] = paf2['TSN'].iloc[b]
-    paf2['Weibull_Removal_Date'].iloc[b] = paf2['Current_Date'].iloc[b] + timedelta(days = (2000 - (paf2['TSLSV'].iloc[b]))/(paf2['WTW_TAT'].iloc[b]/30))
-
-
-# In[ ]:
-
-
-#starting net spare count
-net = len(paf[paf['REMARKS'] == 'SERVICEABLE'])
-
-
-# In[ ]:
-
-
-for c in range (len(paf2)):
-    paf2['RFI_date'].iloc[c]= paf2['Weibull_Removal_Date'].iloc[c] + timedelta(days = (paf2['WTW_TAT'].iloc[c])/1.0)
-
-
-# In[ ]:
-
-
-datetime_series = pd.Series(pd.date_range("2026-10-01", periods=72, freq="ME"))
-
-
-# In[ ]:
-
-
-paf1['removal_count']=0
-paf3 = paf1.groupby(paf1['TPP_date'].dt.to_period('M'))['removal_count'].sum().to_frame().reset_index()
-
-
-# In[ ]:
-
-
-paf3['return_count']=0
-
-
-# In[ ]:
-
-
-paf2['removal_count']=1
-paf2['return_count']=1
-
-
-# In[ ]:
-
-
-paf5 = paf2.groupby(paf2['Weibull_Removal_Date'].dt.to_period('M'))['removal_count'].sum().to_frame().reset_index()
-paf6 = paf2.groupby(paf2['RFI_date'].dt.to_period('M'))['return_count'].sum().to_frame().reset_index()
-paf5.rename(columns={'Weibull_Removal_Date': 'TPP_date'}, inplace=True)
-paf6.rename(columns={'RFI_date': 'TPP_date'}, inplace=True)
-paf7 = pd.merge(paf5, paf6, on='TPP_date', how='outer')
-paf7.fillna(0, inplace=True)
-paf7 = paf7.astype({'removal_count': int, 'return_count': int})
-
-
-# In[ ]:
-
-
-paf8 = pd.concat([paf3, paf7], ignore_index=True, join='outer')
-paf8.fillna(0, inplace=True)
-
-
-# In[ ]:
-
-
-paf9 = paf8.groupby('TPP_date').sum().reset_index()
-
-
-# In[ ]:
-
-
-paf9['Net_Spare_Count']=net
-for a in range (len(paf9)):
-    if a > 0:
-        paf9.Net_Spare_Count.iloc[a] = paf9['Net_Spare_Count'].iloc[a-1] + (paf9['return_count'].iloc[a] - paf9['removal_count'].iloc[a])
-
-
-# In[ ]:
-
-
-paf9['TPP_date'] = paf9['TPP_date'].dt.to_timestamp()
-
-fig3, ax = plt.subplots()
-ax.set_yticks([-4, -3, -2, -1, 0, 1, 2, 3, 4])
-ax.plot(paf9['TPP_date'], paf9['Net_Spare_Count'])
-
-ax.text(min(paf9['TPP_date']), min(paf9['Net_Spare_Count']), f'WTW TAT ={tat} days \n\nUtilization={util:}hrs/mo', c='blue')
-
-plt.axhline(y=1, color='red', linestyle='--', linewidth=1.5)
-plt.axvspan(paf9.TPP_date.iloc[46],paf9.TPP_date.iloc[49], color='yellow', alpha=0.2)
-plt.xlabel("Date")
-plt.ylabel("Net Spare Count")
-plt.legend()
-plt.title("Customer PAF T700 Line of Balance (LOB) Baseline Scenario")
-plt.legend()
-plt.show()
-
-
-
-############################################################# In[REPLOTTING]:
-
-
-
-
-
-
-
-# In[ ]:
 
 fig2, ax = plt.subplots()
-ax.set_yticks([-4, -3, -2, -1, 0, 1, 2, 3, 4])
-ax.plot(paf10['TPP_date'], paf10['Net_Spare_Count'])
+ax.set_yticks([-2, -1, 0, 1, 2, 3, 4])
+ax.plot(paf8['TPP_date'], paf8['Net_Spare_Count'])
 
-ax.text(min(paf10['TPP_date']), min(paf10['Net_Spare_Count']), f'WTW TAT ={tat} days \n\nUtilization={util:}hrs/mo', c='blue')
+ax.text(min(paf8['TPP_date']), min(paf8['Net_Spare_Count']), f'WTW TAT ={tat} days \n\nUtilization={util:}hrs/mo', c='blue')
 
 plt.axhline(y=1, color='red', linestyle='--', linewidth=1.5)
 plt.axvspan(paf8.TPP_date.iloc[46],paf8.TPP_date.iloc[49], color='yellow', alpha=0.2)
@@ -484,12 +347,26 @@ plt.title("Customer PAF T700 Line of Balance (LOB) Baseline Scenario")
 plt.legend()
 plt.show()
 
+
 # In[ ]:
+
+
+st.pyplot(fig)
+
+
+# In[ ]:
+
 
 st.pyplot(fig2)
 
-st.write("Replotting")
-st.pyplot(fig3)
+
+# In[ ]:
+
+
+paf2=paf[['AIRCRAFT NR', 'PART NUMBER', 'SERIAL NUMBER ', 'TSN', 'REMARKS','removal_date', 'current_date', 'TSLSV', 'tat', 'rfi_date']]
+paf2.columns = ['AIRCRAFT NR', 'PART NUMBER', 'SERIAL NUMBER ', 'TSN', 'REMARKS', 'Weibull_Removal_Date', 'Current_Date', 'TSLSV', 'WTW_TAT', 'RFI_date']
+st.data_editor(paf2)
+
 
 # In[ ]:
 
