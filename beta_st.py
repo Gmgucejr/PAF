@@ -392,6 +392,16 @@ col5, col6 = st.columns([3, 3])
 # In[39]:
 
 
+if "df" not in st.session_state:
+    st.session_state.df=paf2
+
+def update_column():
+    # Fetch the newly selected value from the selectbox widget state
+    chosen_status = st.session_state.status_select
+    
+    # Assign the new value to the entire column
+    st.session_state.df["WTW_TAT"] = chosen_status
+
 with col5:
 
     st.markdown(
@@ -415,7 +425,9 @@ with col5:
     tat = st.selectbox(
     "Select an ave. shop WTW TAT (days):",
     [180, 360, 540, 730],
-    index=1)
+    key="status_select",
+    on_change=update_column
+    )
 st.write("Current WTW TAT Selection:", tat)
 
 
