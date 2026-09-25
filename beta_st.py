@@ -502,7 +502,7 @@ paf2 = st.data_editor(
         "RFI_date": st.column_config.DateColumn("RFI_date ✏️")},
     hide_index=True,
 )
-st.session_state.df.style.set_properties(subset=['Weibull_Removal_Date', 'WTW_TAT', 'RFI_date'], **{'background-color': '#FFFFCC'})
+st.session_state.df2.style.set_properties(subset=['Weibull_Removal_Date', 'WTW_TAT', 'RFI_date'], **{'background-color': '#FFFFCC'})
 
 
 # In[42]:
