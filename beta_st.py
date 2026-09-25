@@ -468,8 +468,8 @@ st.write("Current Utilization Selection:", util)
 # In[41]:
 
 
-if "df2" not in st.session_state:
-    st.session_state.df2 = paf2
+if "df" not in st.session_state:
+    st.session_state.df = paf2
 
 # 2. Define the callback function to handle calculations
 def update_dependent_columns():
@@ -480,17 +480,17 @@ def update_dependent_columns():
     for row_index, changed_cols in changes["edited_rows"].items():
         for col, new_val in changed_cols.items():
             # Apply the user's manual change to the session state DataFrame
-            st.session_state.df2.at[row_index, col] = new_val
+            st.session_state.df.at[row_index, col] = new_val
             
         # Recalculate dependent columns for the modified row
-        Weibull_Removal_Date = st.session_state.df2.at[row_index, "Weibull_Removal_Date"]
-        WTW_TAT = st.session_state.df2.at[row_index, "WTW_TAT"]
-        st.session_state.df2.at[row_index, "RFI_date"] = Weibull_Removal_Date + timedelta(days = WTW_TAT/1.0)
+        Weibull_Removal_Date = st.session_state.df.at[row_index, "Weibull_Removal_Date"]
+        WTW_TAT = st.session_state.df.at[row_index, "WTW_TAT"]
+        st.session_state.df.at[row_index, "RFI_date"] = Weibull_Removal_Date + timedelta(days = WTW_TAT/1.0)
 
 # 3. Render the data editor
 # Bind the editor to session state and hook up the callback
 paf2 = st.data_editor(
-    st.session_state.df2,
+    st.session_state.df,
     key="editor_changes",
     on_change=update_dependent_columns,
     disabled=['AIRCRAFT NR', 'PART NUMBER', 'SERIAL NUMBER', 'TSN', 'REMARKS','Current_Date', 'TSLSV',
@@ -502,7 +502,7 @@ paf2 = st.data_editor(
         "RFI_date": st.column_config.DateColumn("RFI_date ✏️")},
     hide_index=True,
 )
-st.session_state.df2.style.set_properties(subset=['Weibull_Removal_Date', 'WTW_TAT', 'RFI_date'], **{'background-color': '#FFFFCC'})
+st.session_state.df.style.set_properties(subset=['Weibull_Removal_Date', 'WTW_TAT', 'RFI_date'], **{'background-color': '#FFFFCC'})
 
 
 # In[42]:
