@@ -402,7 +402,7 @@ def update_column():
     # Assign the new value to the entire column and calculate a new RFI date
     st.session_state.df["WTW_TAT"] = chosen_status
     for a in range(len(st.session_state.df)):
-        st.session_state.df["RFI_date"].iloc[a] = st.session_state.df["Weibull_Removal_Date"] + timedelta(days = chosen_status/1.0)
+        st.session_state.df["RFI_date"].iloc[a] = st.session_state.df["Weibull_Removal_Date"].iloc[a] + timedelta(days = chosen_status/1.0)
     st.session_state["df"] = paf2
     
 with col5:
