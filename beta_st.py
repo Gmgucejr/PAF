@@ -392,18 +392,18 @@ col5, col6 = st.columns([3, 3])
 # In[39]:
 
 
-if "df" not in st.session_state:
-    st.session_state.df=paf2
+if "df2" not in st.session_state:
+    st.session_state.df2=paf2
 
 def update_column():
     # Fetch the newly selected value from the selectbox widget state
     chosen_status = st.session_state.status_select
     
     # Assign the new value to the entire column and calculate a new RFI date
-    st.session_state.df["WTW_TAT"] = chosen_status
-    for a in range(len(st.session_state.df)):
-        st.session_state.df["RFI_date"].iloc[a] = st.session_state.df["Weibull_Removal_Date"].iloc[a] + timedelta(days = chosen_status/1.0)
-    st.session_state["df"] = paf2
+    st.session_state.df2["WTW_TAT"] = chosen_status
+    for a in range(len(st.session_state.df2)):
+        st.session_state.df2["RFI_date"].iloc[a] = st.session_state.df2["Weibull_Removal_Date"].iloc[a] + timedelta(days = chosen_status/1.0)
+    st.session_state["df2"] = paf2
     
 with col5:
 
