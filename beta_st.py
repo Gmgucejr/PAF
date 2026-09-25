@@ -429,21 +429,7 @@ with col5:
     on_change=update_column
     )
 
-paf2 = st.data_editor(
-    st.session_state.df,
-    key="status_select",
-    on_change=update_column,
-    disabled=['AIRCRAFT NR', 'PART NUMBER', 'SERIAL NUMBER', 'TSN', 'REMARKS','Current_Date', 'TSLSV',
-       'removal_count', 'return_count'],
-    use_container_width=True,
-    column_config={
-        "Weibull_Removal_Date": st.column_config.DateColumn("Weibull_Removal_Date ✏️"),
-        "WTW_TAT": st.column_config.NumberColumn("WTW_TAT ✏️", format="%.0f"),
-        "RFI_date": st.column_config.DateColumn("RFI_date ✏️")},
-    hide_index=True,
-)
-st.session_state.df.style.set_properties(subset=['Weibull_Removal_Date', 'WTW_TAT', 'RFI_date'], **{'background-color': '#FFFFCC'})
-
+paf2 = st.session_state.df
 st.write("Current WTW TAT Selection:", tat)
 
 
