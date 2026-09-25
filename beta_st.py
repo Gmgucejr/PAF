@@ -401,7 +401,8 @@ def update_column():
     
     # Assign the new value to the entire column
     st.session_state.df["WTW_TAT"] = chosen_status
-
+    st.session_state["df"] = paf2
+    
 with col5:
 
     st.markdown(
@@ -428,8 +429,7 @@ with col5:
     key="status_select",
     on_change=update_column
     )
-
-paf2 = st.session_state.df
+    
 st.write("Current WTW TAT Selection:", tat)
 
 
